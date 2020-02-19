@@ -12,6 +12,9 @@ class UserContent extends Component {
                 <div>
                     {body}
                 </div>
+                <div>
+
+                </div>
             </div>
         )
     };

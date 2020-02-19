@@ -83,7 +83,7 @@ class Maps extends Component {
 
         // console.log('----< ', bolivia);
         return (
-            <div className="App">
+            <div className="container">
                 <div className="inline-block absolute top left mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
                     <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
                 </div>
