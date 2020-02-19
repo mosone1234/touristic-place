@@ -2,25 +2,21 @@
 // like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
 // of the page.
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-
-const Hello = props => (
-  <div>Hello {props.name}!</div>
-)
-
-Hello.defaultProps = {
-  name: 'David'
-}
-
-Hello.propTypes = {
-  name: PropTypes.string
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router } from 'react-router-dom';
+import { history } from '../_helpers';
+import AppRoutes from '../routes/AppRoutes';
+import './index.css';
+import 'mapbox-gl/src/css/mapbox-gl.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Hello name="React" />,
+
+    <Router history={history}>
+      <AppRoutes />
+    </Router>
+    ,
     document.body.appendChild(document.createElement('div')),
   )
 })
