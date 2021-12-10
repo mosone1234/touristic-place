@@ -14,9 +14,9 @@ class App extends Component {
                 <div className="col-md-12">
                     <UserContent body={children}></UserContent>
                 </div>
-                <div className="col-md-12">
+                {/* <div className="col-md-12">
                     <Sidebar></Sidebar>
-                </div>
+                </div> */}
             </div>
         )
     }
