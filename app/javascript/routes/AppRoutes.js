@@ -7,7 +7,7 @@ import Maps from '../components/user/map/Maps';
 const AppRoutes = () =>
     <App>
         <Switch>
-            <Route path="/" exact component={Home} />
+            {/* <Route path="/" exact component={Maps} /> */}
             <Route path="/map" exact component={Maps} />
         </Switch>
     </App>;

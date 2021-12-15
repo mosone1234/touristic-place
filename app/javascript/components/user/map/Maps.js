@@ -7,6 +7,11 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import './Maps.css';
 import bolivia from './bolivia.json';
 import axios from 'axios';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 
 class Maps extends Component {
 
@@ -17,6 +22,7 @@ class Maps extends Component {
             lng: -61.841,
             zoom: 4.64,
             department: null,
+            open: false,
         };
 
     }
@@ -46,58 +52,26 @@ class Maps extends Component {
         });
     }
 
-    async showDepartments (map) {
-        console.log('---------------------------------------------')
-        console.log('---------------------------------------------')
-        console.log('-----------------MAPA-------------------')
-        console.log('---------------------------------------------')
-        console.log('---------------------------------------------')
-        console.log('---------------------------------------------')
+    async showDepartments () {
         try {
             const instance = axios.create({
                 baseURL: 'http://localhost:3000',
                 headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
                 }
             })
+            this.setState({ open: true })
             const response = await instance.get('/departments/index')
-            console.log('22222222222222222222222222222222')
-            console.log('22222222222222222222222222222222') 
-            console.log(response.data)
-            console.log('22222222222222222222222222222222')
-            console.log('22222222222222222222222222222222')
-            // const aa = response.data.features.map(x => { 
-            //     // x.geometry.type = "Polygon"
-            //     // const d2 = x.geometry.coordinates[0][0]
-            //     // x.geometry.coordinates = x.geometry.coordinates[0]
-            //     const data1 = x.geometry.coordinates[0]
-            //     const data = 
-            //         {
-            //             // bolivia
-            //             'type': 'Feature',
-            //             'geometry': {
-            //                 'type': 'Polygon',
-            //                 'coordinates': data1
-            //             }
-            //         }
-            //     return data
-            // })
-            // this.paintDepartment(response.data.features[0].geometry.coordinates[0])
+            this.setState({ open: false })
             this.paintDepartment(response.data)
           
                             
             this.setState({ department: aa }, () => {
-                console.log('--------------------ASIGNA EL VALOR')
-                console.log('--------------------ASIGNA EL VALOR')
-                console.log('--------------------ASIGNA EL VALOR')
                 if (this.state.department) {
                     console.log(this.state.department)
                     // this.paintDepartment(this.state.department)
                 }
-                console.log('--------------------ASIGNA EL VALOR')
-                console.log('--------------------ASIGNA EL VALOR')
-                console.log('--------------------ASIGNA EL VALOR')
             });
         } catch (error) {
             console.log(error)
@@ -105,7 +79,6 @@ class Maps extends Component {
     }
 
     layerOnCountry(map) {
-
         console.log('================================?????', bolivia.geometry.coordinates[0])
         map.on('load', function () {
             map.addSource('country', {
@@ -178,7 +151,7 @@ class Maps extends Component {
                                 'id': 2,
                                 'properties': {
                                     'dep_name': map1.features[1].properties.dep_name,
-                                    'description': ''
+                                    'description': 'Cochabamba es una ciudad boliviana, capital de la provincia Cercado y del departamento homónimo. Se encuentra situada en el centro del país, en el valle central del departamento. Tiene una población estimada de 841.000 habitantes a 2021, y de 1.4 millones en su región metropolitana,4​ llamada también como Región metropolitana de Kanata, a la cual pertenece, junto a los municipios de: Sacaba, Quillacollo, Colcapirhua, Tiquipaya, Vinto y Sipe Sipe.'
                                 },
                                 'geometry': {
                                     'type': 'Polygon',
@@ -191,7 +164,7 @@ class Maps extends Component {
                                 'id': 3,
                                 'properties': {
                                     'dep_name': map1.features[2].properties.dep_name,
-                                    'description': ''
+                                    'description': 'Trinidad, oficialmente Santísima Trinidad, es una ciudad de Bolivia, capital del Departamento del Beni y de la Provincia de Cercado, tiene una superficie de 35 km² y cuenta con una población estimada de 132.785 habitantes, siendo el municipio más poblado del Departamento del Beni.'
                                 },
                                 'geometry': {
                                     'type': 'Polygon',
@@ -204,7 +177,7 @@ class Maps extends Component {
                                 'id': 4,
                                 'properties': {
                                     'dep_name': map1.features[3].properties.dep_name,
-                                    'description': ''
+                                    'description': 'La ciudad de La Paz, oficialmente Nuestra Señora de La Paz (en aimara y quechua, Chuqiyapu, labrantío de oro; españolizado como Chuquiago, Chuquiabo o Choqueyapu) es la Sede de Gobierno del Órgano Ejecutivo de Bolivia. Es el centro político, financiero, social, académico y cultural más importante del país, además de ser la ciudad con mayor nivel de desarrollo sostenible en Bolivia'
                                 },
                                 'geometry': {
                                     'type': 'Polygon',
@@ -217,7 +190,7 @@ class Maps extends Component {
                                 'id': 5,
                                 'properties': {
                                     'dep_name': map1.features[4].properties.dep_name,
-                                    'description': ''
+                                    'description': 'Oruro es una ciudad y municipio boliviano, capital del departamento de Oruro y de la Provincia de Cercado. El municipio tiene una población de 264 683 habitantes (según el último Censo boliviano de 2012), convirtiéndose de esa manera en la quinta ciudad más poblada de Bolivia.'
                                 },
                                 'geometry': {
                                     'type': 'Polygon',
@@ -230,7 +203,7 @@ class Maps extends Component {
                                 'id': 6,
                                 'properties': {
                                     'dep_name': map1.features[5].properties.dep_name,
-                                    'description': ''
+                                    'description': 'Cobija es una ciudad y municipio boliviano, capital del Departamento de Pando y de la Provincia Nicolás Suárez. La ciudad es fronteriza con el vecino país de Brasil además de ser la única aglomeración urbana de este departamento al norte de Bolivia.'
                                 },
                                 'geometry': {
                                     'type': 'Polygon',
@@ -243,7 +216,7 @@ class Maps extends Component {
                                 'id': 7,
                                 'properties': {
                                     'dep_name': map1.features[6].properties.dep_name,
-                                    'description': ''
+                                    'description': 'Potosí ―fundada como la Villa Imperial de Potosí― es una ciudad del sur de Bolivia, capital del departamento del mismo nombre y de la provincia de Tomás Frías. Se extiende a las faldas de una legendaria montaña llamada Cerro Rico (en quechua: Sumaq Urqu), en la cual se situó la mina de plata más grande del mundo desde mediados del siglo XVI hasta mediados del siglo XVII.'
                                 },
                                 'geometry': {
                                     'type': 'Polygon',
@@ -256,7 +229,7 @@ class Maps extends Component {
                                 'id': 8,
                                 'properties': {
                                     'dep_name': map1.features[7].properties.dep_name,
-                                    'description': ''
+                                    'description': 'Santa Cruz de la Sierra es una ciudad localizada en los llanos orientales de Bolivia, a orillas del río Piraí. Actualmente es la ciudad más poblada del país con un total aproximado de 2 millones de habitantes, en 2021.2​ Es capital del Departamento de Santa Cruz, el departamento de mayor Producto Regional Bruto en Bolivia'
                                 },
                                 'geometry': {
                                     'type': 'Polygon',
@@ -269,7 +242,7 @@ class Maps extends Component {
                                 'id': 9,
                                 'properties': {
                                     'dep_name': map1.features[8].properties.dep_name,
-                                    'description': ''
+                                    'description': 'San Bernardo de Tarija o Tarija, ciudad originalmente fundada con el nombre de Villa de San Bernardo de la Frontera de Tarixa,4​ es un municipio y una ciudad de Bolivia, capital de la provincia Cercado y del departamento homónimo. Cuenta con una población de aproximadamente 247.000 habitantes en total. Se encuentra ubicada en el valle del río Guadalquivir a 1834 msnm.'
                                 },
                                 'geometry': {
                                     'type': 'Polygon',
@@ -374,7 +347,7 @@ class Maps extends Component {
                         console.log('-------------------')
                     new mapboxgl.Popup()
                     .setLngLat(e.lngLat)
-                    .setHTML("<strong>" + e.features[1].properties.dep_name + "</strong> </br>" + e.features[1].properties.description)
+                    .setHTML("<strong>" + e.features[0].properties.dep_name + "</strong> </br>" + e.features[0].properties.description)
                     // .setHTML("POPUP!")
                     .addTo(map);
                     });
@@ -403,23 +376,27 @@ class Maps extends Component {
 
     }
 
+    handleClose () {
+        this.setState({ open: false })
+    }
+    handleToggle () {
+        this.setState({ open: true })
+    } 
+
     async getProvinces () {
-        console.log('ESTA ES LA NUEVA FUNCION')
         try {
             const instance = axios.create({
                 baseURL: 'http://localhost:3000',
                 headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
                 }
             })
+            this.setState({ open: true })
             const response = await instance.get('/provinces/index')
-            console.log('------------------------')
-            console.log('------------------------')
+            this.setState({ open: false })
             console.log(response.data)
             this.drawerProvincias(response.data)
-            console.log('------------------------')
-            console.log('------------------------')
         } catch (error) {
             console.log(error)
         }
@@ -512,9 +489,6 @@ class Maps extends Component {
             });
                 
             map.on('click', 'states-layer', (e) => {
-                console.log('---------------------------------------111111111111111111111')
-                console.log(e.features)
-                console.log('---------------------------------------111111111111111111111')
                 new mapboxgl.Popup()
                 .setLngLat(e.lngLat)
                 .setHTML("<strong>" + e.features[0].properties.pro_name + "</strong> </br>")
@@ -542,10 +516,11 @@ class Maps extends Component {
                 </div>
                 <div id="map" />
                 <nav id="listing-group" className="listing-group">
-                    <input type="checkbox" id="scrollZoom" onClick={() => {  this.getProvinces()}}/>
+                    <label for="scrollZoom">BOLIVIA - DEPARTAMENTOS Y PROVINCIAS</label>
+                    <input type="checkbox" id="scrollZoom" onClick={() => {  this.getProvinces() }}/>
                     {/* <button type="button" onClick={() => { this.getProvinces()}}>dsdkskdkskds</button> */}
                     <label for="scrollZoom">PROVINCIAS</label>
-                    <input type="checkbox" id="boxZoom" checked="checked" />
+                    <input type="checkbox" id="boxZoom" onClick={() => { this.showDepartments() }} />
                     <label for="boxZoom">DEPARTMENTOS</label>
                     {/* <input type="checkbox" id="scrollZoom" checked="checked" />
                     <label for="scrollZoom">Chuquisaca</label>
@@ -565,6 +540,18 @@ class Maps extends Component {
                     <label for="touchZoomRotate">Santa Cruz­</label>
                     <input type="checkbox" id="touchZoomRotate" checked="checked" />
                     <label for="touchZoomRotate">Tarija</label> */}
+                    {/* <Button onClick={() => { this.handleToggle() }}>Show backdrop</Button> */}
+                    <Backdrop
+                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                        open={this.state.open}
+                        onClick={() => { this.handleClose() }}
+                    >
+                        <Stack gap={1} justifyContent="center" alignItems="center">
+                        <CircularProgress color="inherit" />
+                        <Typography>Cargando Mapa...</Typography>
+                        <Typography>Este proceso puede demorar 1 minuto...</Typography>
+                        </Stack>
+                    </Backdrop>
                 </nav>
             </div>
         );
